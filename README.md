@@ -1,6 +1,8 @@
 # Neon-DFence-Javascript
 Neon DFence remade in javascript.
 
+![icon1](https://user-images.githubusercontent.com/11281480/136726643-76c13bf9-5b28-4ed6-a355-6b63746660fb.png)
+
 ### How to Play / Install
 * install npm ( https://docs.npmjs.com/downloading-and-installing-node-js-and-npm )
 * clone Neon-DFence-Javascript-main files, then extract, and navigate to that folder
