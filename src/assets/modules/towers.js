@@ -414,7 +414,7 @@ export class Towers {
 
     draw(ctx){
         if (this.target) {
-            this.#drawLine(this.game.ctx, this.target, 3, 'Teal');
+            this.#drawLine(this.game.weaponCtx, this.target, 3, 'Teal');
         }
 
         if (this.rotate){

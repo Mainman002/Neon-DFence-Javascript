@@ -8,6 +8,7 @@
             this.reached_goal = {x:false, y:false};
             this.dir = true;
             this.health = 10;
+            this.MySpeed = 0.07; // Slowest = 0.06 Fastest = 1.0
             this.markedForDeletion = false;
 
             // print(this.game);
@@ -29,11 +30,13 @@
         update(deltaTime){
             if (!this.reached_goal.x){
                 if (this.pos.x < this.path[this.path_goal].x){
-                    this.pos.x++;
+                    // this.pos.x++;
+                    this.pos.x += Math.floor(this.MySpeed * deltaTime);
                 } 
 
                 if (this.pos.x > this.path[this.path_goal].x){
-                    this.pos.x--;
+                    // this.pos.x--;
+                    this.pos.x -= Math.floor(this.MySpeed * deltaTime);
                 }
 
                 if (this.pos.x === this.path[this.path_goal].x) this.reached_goal.x = true;
@@ -41,11 +44,13 @@
 
             if (!this.reached_goal.y){
                 if (this.pos.y < this.path[this.path_goal].y){
-                    this.pos.y++;
+                    // this.pos.y++;
+                    this.pos.y += Math.floor(this.MySpeed * deltaTime);
                 } 
 
                 if (this.pos.y > this.path[this.path_goal].y){
-                    this.pos.y--;
+                    // this.pos.y--;
+                    this.pos.y -= Math.floor(this.MySpeed * deltaTime);
                 }
 
                 if (this.pos.y === this.path[this.path_goal].y) this.reached_goal.y = true;
@@ -112,6 +117,7 @@
             this.frameCurrent = {x:this.spriteSize.w*this.frame.x, y:this.spriteSize.h*this.frame.y};
             this.pos = {x:pos.x, y:pos.y}
             this.speed = {x: Math.random() * 0.2 + 1.2, y: Math.random() * 0.1 + 1.0};
+            // this.speed = {x: 1, y:10};
             this.angle = 0;
             this.curve = Math.random() * 0.1 + 0.4
             // this.dir = false;
