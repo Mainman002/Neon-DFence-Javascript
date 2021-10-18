@@ -219,6 +219,7 @@ window.addEventListener('load', function(){
             this.weapon = weapon;
             this.weaponCtx = weaponCtx;
             this.size = size;
+            this.active_map = 1;
 
             this.mouse = {
                 pos:{x:0, y:0},
@@ -246,7 +247,7 @@ window.addEventListener('load', function(){
                 [17,18,19],
                 [20,21,22], ];
 
-            this.level = new maps[12];
+            this.level = new maps[this.active_map];
             this.towerArr = this.level.towerArr;
 
         }
