@@ -1,0 +1,26 @@
+{
+  "name": "neon-d-fence",
+  "version": "1.0.0",
+  "description": "A tower defence game with a neon theme.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "neon",
+    "defence",
+    "defense",
+    "tower",
+    "2d",
+    "strategy",
+    "game",
+    "javascript",
+    "js"
+  ],
+  "author": "Johnathan Mueller",
+  "license": "GPL-3.0",
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^15.1.2"
+  }
+}
