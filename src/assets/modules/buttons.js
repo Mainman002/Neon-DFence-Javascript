@@ -64,11 +64,36 @@ export class TowerButton {
 }
 
 
+// No Tile
+export class TowerRemoveButton extends TowerButton{
+    constructor(game, pos){
+        super(game);
+        this.type = 0;
+        this.animated = false;
+        this.image = button_sprites;
+        this.spriteSize = {w:128, h:128}
+        this.frame = {x:1, y:0};
+        this.frameCurrent = {x:this.spriteSize.w*this.frame.x, y:this.spriteSize.h*this.frame.y};
+        this.pos = {x:pos.x, y:pos.y}
+        this.scale = 0.5;
+        this.size = {w:this.spriteSize.w*this.scale, h:this.spriteSize.h*this.scale};
+    }
+
+    // update(deltaTime){
+    //     if (this.game.mouse && this.game.mouse.click){
+    //         if (Collision(this.pos, this.game.mouse.pos)){
+    //             this.markedForDeletion = true;
+    //         }
+    //     }
+    // }
+}
+
+
 // Base Tile
 export class TowerButton_0_UP0 extends TowerButton{
     constructor(game, pos){
         super(game);
-        this.type = 0;
+        this.type = 1;
         this.animated = false;
         this.image = button_sprites;
         this.spriteSize = {w:128, h:128}
@@ -93,7 +118,7 @@ export class TowerButton_0_UP0 extends TowerButton{
 export class TowerButton_1_UP1 extends TowerButton{
     constructor(game, pos){
         super(game);
-        this.type = 1;
+        this.type = 2;
         this.animated = false;
         this.image = button_sprites;
         this.spriteSize = {w:128, h:128};
@@ -112,7 +137,7 @@ export class TowerButton_1_UP1 extends TowerButton{
 export class TowerButton_1_UP2 extends TowerButton{
     constructor(game, pos){
         super(game);
-        this.type = 2;
+        this.type = 3;
         this.animated = false;
         this.image = button_sprites;
         this.spriteSize = {w:128, h:128};
@@ -131,7 +156,7 @@ export class TowerButton_1_UP2 extends TowerButton{
 export class TowerButton_1_UP3 extends TowerButton{
     constructor(game, pos){
         super(game);
-        this.type = 3;
+        this.type = 4;
         this.animated = false;
         this.image = button_sprites;
         this.spriteSize = {w:128, h:128};
@@ -150,7 +175,7 @@ export class TowerButton_1_UP3 extends TowerButton{
 export class TowerButton_2_UP1 extends TowerButton{
     constructor(game, pos){
         super(game);
-        this.type = 4;
+        this.type = 5;
         this.animated = false;
         this.image = button_sprites;
         this.spriteSize = {w:128, h:128};
@@ -169,7 +194,7 @@ export class TowerButton_2_UP1 extends TowerButton{
 export class TowerButton_2_UP2 extends TowerButton{
     constructor(game, pos){
         super(game);
-        this.type = 5;
+        this.type = 6;
         this.animated = false;
         this.image = button_sprites;
         this.spriteSize = {w:128, h:128};
@@ -188,7 +213,7 @@ export class TowerButton_2_UP2 extends TowerButton{
 export class TowerButton_2_UP3 extends TowerButton{
     constructor(game, pos){
         super(game);
-        this.type = 6;
+        this.type = 7;
         this.animated = false;
         this.image = button_sprites;
         this.spriteSize = {w:128, h:128};
@@ -207,7 +232,7 @@ export class TowerButton_2_UP3 extends TowerButton{
 export class TowerButton_3_UP1 extends TowerButton{
     constructor(game, pos){
         super(game);
-        this.type = 7;
+        this.type = 8;
         this.animated = false;
         this.image = button_sprites;
         this.spriteSize = {w:128, h:128};
@@ -226,7 +251,7 @@ export class TowerButton_3_UP1 extends TowerButton{
 export class TowerButton_3_UP2 extends TowerButton{
     constructor(game, pos){
         super(game);
-        this.type = 8;
+        this.type = 9;
         this.animated = false;
         this.image = button_sprites;
         this.spriteSize = {w:128, h:128};
@@ -245,7 +270,7 @@ export class TowerButton_3_UP2 extends TowerButton{
 export class TowerButton_3_UP3 extends TowerButton{
     constructor(game, pos){
         super(game);
-        this.type = 9;
+        this.type = 10;
         this.animated = false;
         this.image = button_sprites;
         this.spriteSize = {w:128, h:128};
@@ -264,7 +289,7 @@ export class TowerButton_3_UP3 extends TowerButton{
 export class TowerButton_4_UP1 extends TowerButton{
     constructor(game, pos){
         super(game);
-        this.type = 10;
+        this.type = 11;
         this.animated = false;
         this.image = button_sprites;
         this.spriteSize = {w:128, h:128};
@@ -283,7 +308,7 @@ export class TowerButton_4_UP1 extends TowerButton{
 export class TowerButton_4_UP2 extends TowerButton{
     constructor(game, pos){
         super(game);
-        this.type = 11;
+        this.type = 12;
         this.animated = false;
         this.image = button_sprites;
         this.spriteSize = {w:128, h:128};
@@ -302,7 +327,7 @@ export class TowerButton_4_UP2 extends TowerButton{
 export class TowerButton_4_UP3 extends TowerButton{
     constructor(game, pos){
         super(game);
-        this.type = 12;
+        this.type = 13;
         this.animated = false;
         this.image = button_sprites;
         this.spriteSize = {w:128, h:128};
@@ -321,7 +346,7 @@ export class TowerButton_4_UP3 extends TowerButton{
 export class TowerButton_5_UP1 extends TowerButton{
     constructor(game, pos){
         super(game);
-        this.type = 13;
+        this.type = 14;
         this.animated = false;
         this.image = button_sprites;
         this.spriteSize = {w:128, h:128};
@@ -340,7 +365,7 @@ export class TowerButton_5_UP1 extends TowerButton{
 export class TowerButton_5_UP2 extends TowerButton{
     constructor(game, pos){
         super(game);
-        this.type = 14;
+        this.type = 15;
         this.animated = false;
         this.image = button_sprites;
         this.spriteSize = {w:128, h:128};
@@ -359,7 +384,7 @@ export class TowerButton_5_UP2 extends TowerButton{
 export class TowerButton_5_UP3 extends TowerButton{
     constructor(game, pos){
         super(game);
-        this.type = 15;
+        this.type = 16;
         this.animated = false;
         this.image = button_sprites;
         this.spriteSize = {w:128, h:128};
@@ -378,7 +403,7 @@ export class TowerButton_5_UP3 extends TowerButton{
 export class TowerButton_6_UP1 extends TowerButton{
     constructor(game, pos){
         super(game);
-        this.type = 16;
+        this.type = 17;
         this.animated = false;
         this.image = button_sprites;
         this.spriteSize = {w:128, h:128};
@@ -397,7 +422,7 @@ export class TowerButton_6_UP1 extends TowerButton{
 export class TowerButton_6_UP2 extends TowerButton{
     constructor(game, pos){
         super(game);
-        this.type = 17;
+        this.type = 18;
         this.animated = false;
         this.image = button_sprites;
         this.spriteSize = {w:128, h:128};
@@ -416,7 +441,7 @@ export class TowerButton_6_UP2 extends TowerButton{
 export class TowerButton_6_UP3 extends TowerButton{
     constructor(game, pos){
         super(game);
-        this.type = 18;
+        this.type = 19;
         this.animated = false;
         this.image = button_sprites;
         this.spriteSize = {w:128, h:128};

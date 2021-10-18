@@ -1,5 +1,5 @@
 // Map Array
-import {L_00, L_01, L_02, L_03, L_04, L_05, L_06, L_07, L_08, L_09} from '../src/assets/maps/maps.js';
+import {L_00, L_01, L_02, L_03, L_04, L_05, L_06, L_07, L_08, L_09, L_10, L_11, L_12} from '../src/assets/maps/maps.js';
 
 // Collisions
 // import {Collision} from './src/assets/modules/collisions.js';
@@ -21,7 +21,7 @@ import {
 
 // Tower Select Buttons
 import {
-    TowerButton, TowerButton_0_UP0,
+    TowerButton_0_UP0,
     TowerButton_1_UP1, TowerButton_1_UP2, TowerButton_1_UP3,
     TowerButton_2_UP1, TowerButton_2_UP2, TowerButton_2_UP3,
     TowerButton_3_UP1, TowerButton_3_UP2, TowerButton_3_UP3,
@@ -56,7 +56,7 @@ window.addEventListener('load', function(){
 
     screen_resize();
 
-    const maps = [L_00, L_01, L_02, L_03, L_04, L_05, L_06, L_07, L_08, L_09];
+    const maps = [L_00, L_01, L_02, L_03, L_04, L_05, L_06, L_07, L_08, L_09, L_10, L_11, L_12];
 
     const towerTypes = [TowerTile, 
         Tower1_UP1, Tower1_UP2, Tower1_UP3, 
@@ -88,14 +88,14 @@ window.addEventListener('load', function(){
                 pos = {x:game.towers[i].pos.x, y:game.towers[i].pos.y};
                 game.mouse.click = false;
 
-                if (game.towers[i].type === 0){
+                if (game.towers[i].type === 1){
                     console.log("Base")
                     game.towers.splice(i, 1);
                     i--;
-                    game.instance(game.towers, towerTypes[game.mouse.activeTower], {x:pos.x, y:pos.y});
+                    game.instance(game.towers, towerTypes[game.mouse.activeTower-1], {x:pos.x, y:pos.y});
                     i++;
                 } else {
-                    if (game.mouse.activeTower === 0) {
+                    if (game.mouse.activeTower === 1) {
                         console.log("Tile")
                         game.towers.splice(i, 1);
                         i--;
@@ -156,10 +156,23 @@ window.addEventListener('load', function(){
 
 
     function screen_resize(){
-        const w = window.innerWidth;
-        const h = window.innerHeight;
-        const border = 100;
+
         const img_smooth = true;
+        const border = 100;
+        const aspect = {w:6.5, h:4};
+
+        let w = window.innerWidth;
+        let h = w * (aspect.h / aspect.w);
+
+        if (h < window.innerHeight){
+            // Check window width
+            w = window.innerWidth;
+            h = w * (aspect.h / aspect.w);
+        } else {
+            // Check window height
+            h = window.innerHeight;
+            w = h * (aspect.w / aspect.h);
+        }
 
         canvas.style.width = `${w - border}px`;
         canvas.style.height = `${h - border}px`;
@@ -210,7 +223,7 @@ window.addEventListener('load', function(){
             this.mouse = {
                 pos:{x:0, y:0},
                 size:{w:0.2, h:0.2},
-                activeTower:1,
+                activeTower:2,
                 click:false,
             }
 
@@ -225,32 +238,67 @@ window.addEventListener('load', function(){
             this.towers = [];
             this.buttons = [];
             this.buttonArr = [    
-                [1,2,3],
-                [4,5,6],
-                [7,8,9],
-                [10,11,12],
-                [13,14,15],
-                [16,17,18],
-                [19,20,21], ];
+                [2,3,4],
+                [5,6,7],
+                [8,9,10],
+                [11,12,13],
+                [14,15,16],
+                [17,18,19],
+                [20,21,22], ];
 
-            this.level = new maps[1];
+            this.level = new maps[12];
             this.towerArr = this.level.towerArr;
 
         }
 
+        add_resource(_energy, _memory){
+            if (!this.energy){
+                this.energy = 0;
+            } 
+            
+            if (!this.memory){
+                this.memory = 0;
+            }
+
+            if (_energy){
+                this.energy += _energy;
+            }
+            
+            if (_memory){
+                this.memory += _memory;
+            }
+        }
+
         init(){
+            this.add_resource(100, 0);
 
             // Enemy Spawn
             // this.enemies.push(new this.enemyTypes[0](this, {x:0, y:0}));
 
             // Tower Grid
-            for(let y = 0; y < this.towerArr.length; ++y) {    
-                for(let x = 0; x < this.towerArr[y].length; ++x) {        
-                    if (this.towerArr[y][x]){
-                        this.instance(this.towers, towerTypes[this.towerArr[y][x]-1], {x:64*x, y:64*y});
+            // for(let y = 0; y < this.towerArr.length; ++y) {    
+            //     for(let x = 0; x < this.towerArr[y].length; ++x) {        
+            //         if (this.towerArr[y][x]){
+            //             this.instance(this.towers, towerTypes[this.towerArr[y][x]-1], {x:64*x, y:64*y});
+            //         }
+            //     }
+            // }
+
+
+            if (this.towerArr.length > 0) {
+                for (let i = 0; i < this.towerArr.length; ++i){
+                    if (towerTypes[this.towerArr[i]-1]) {
+                        this.instance(this.towers, towerTypes[this.towerArr[i]-1], {x:(i % 12) * 64, y:Math.floor(i/12) * 64});
+                    // this.instance(this.towers, towerTypes[this.towerArr[y][x]-1], {x:64*x, y:64*y});
+                    // this.grid.push(new Grid(this.towerArr[i], i, {x:(i % 12) * 64, y:Math.floor(i/12) * 64}, {w:64, h:64}));
+                    // this.grid[i].init();
                     }
                 }
             }
+
+
+
+
 
             // Tower Buttons
             // let temp_type = 1;
@@ -299,8 +347,8 @@ window.addEventListener('load', function(){
             ctx.textAlign = 'left';
             ctx.fillStyle = 'Gold';
             ctx.font = `${32}px ${'Noto Sans'}`;
-            ctx.fillText(`Energy: ${Math.round(game.energy)}`, 780, 40);
-            ctx.fillText(`Memory: ${Math.round(game.memory)}`, 780, 80);
+            ctx.fillText(`Energy: ${Math.round(this.energy)}`, 780, 40);
+            ctx.fillText(`Memory: ${Math.round(this.memory)}`, 780, 80);
 
 
             // Show Mouse Position
