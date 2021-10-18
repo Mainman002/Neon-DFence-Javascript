@@ -1,6 +1,8 @@
 # Neon-DFence-Javascript
 Neon DFence remade in javascript.
 
+### [Click To Run In Browser](https://mainman002.github.io/Neon-DFence-Javascript/)
+
 ![icon1](https://user-images.githubusercontent.com/11281480/136726643-76c13bf9-5b28-4ed6-a355-6b63746660fb.png)
 
 ### How to Play / Install
