@@ -1,9 +1,6 @@
 // Map Array
 import {L_00, L_01, L_02, L_03, L_04, L_05, L_06, L_07, L_08, L_09, L_10, L_11, L_12} from '../src/assets/maps/maps.js';
 
-// Collisions
-// import {Collision} from './src/assets/modules/collisions.js';
-
 // Enemies
 import {
     Enemy_01, Enemy_02, Enemy_03, Enemy_04, Enemy_05, Enemy_06, Enemy_07,
@@ -31,17 +28,11 @@ import {
     } from '../src/assets/modules/buttons.js';
 
 window.addEventListener('load', function(){
-    const bg = document.getElementById("bg");
     const bgCtx = bg.getContext('2d');
-
-    const weapon = document.getElementById("weapon");
     const weaponCtx = weapon.getContext('2d');
-
-    const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext('2d');
-
-    const interact = document.getElementById("interact");
     const interactCtx = interact.getContext('2d');
+
     canvas.width = 1088;
     canvas.height = 640;
 
@@ -54,7 +45,10 @@ window.addEventListener('load', function(){
     interact.width = canvas.width;
     interact.height = canvas.height;
 
-    screen_resize();
+    screen_resize(ctx, canvas);
+    screen_resize(bgCtx, bg);
+    screen_resize(weaponCtx, weapon);
+    screen_resize(interactCtx, interact);
 
     const maps = [L_00, L_01, L_02, L_03, L_04, L_05, L_06, L_07, L_08, L_09, L_10, L_11, L_12];
 
@@ -108,13 +102,13 @@ window.addEventListener('load', function(){
     });
 
     window.addEventListener('resize', function(e) {
-        screen_resize();
+        screen_resize(ctx, canvas);
+        screen_resize(bgCtx, bg);
+        screen_resize(weaponCtx, weapon);
+        screen_resize(interactCtx, interact);
     });
 
     window.addEventListener('mousemove', function(e) {
-        // game.mouse.pos.x = e.clientX - canvas.getBoundingClientRect().x;
-        // game.mouse.pos.y = e.clientY - canvas.getBoundingClientRect().y;
-
         let bounds = canvas.getBoundingClientRect();
         // get the mouse coordinates, subtract the canvas top left and any scrolling
         game.mouse.pos.x = e.pageX - bounds.left - scrollX;
@@ -126,7 +120,6 @@ window.addEventListener('load', function(){
         game.mouse.pos.y /= bounds.height; 
 
         // then scale to canvas coordinates by multiplying the normalized coords with the canvas resolution
-
         game.mouse.pos.x *= canvas.width;
         game.mouse.pos.y *= canvas.height;
     });
@@ -142,21 +135,16 @@ window.addEventListener('load', function(){
         game.mouse.click = false;
     });
 
-    window.addEventListener('keydown', function(e) {
-        switch (e.key){
-            case '0':
-                game.mouse.activeTower = 0;
-                break;
-        }
-        // if (e.key == '1' || '2' || '3' || '4' || '5' || '6' || '7' || '8' || '9' || '0') {
-        //     game.mouse.activeTower = Number(e.key);
-        //     console.log(game.mouse.activeTower); 
-        // }
-    });
+    // window.addEventListener('keydown', function(e) {
+    //     switch (e.key){
+    //         case '0':
+    //             game.mouse.activeTower = 0;
+    //             break;
+    //     }
+    // });
 
 
-    function screen_resize(){
-
+    function screen_resize(_ctx, _canvas){
         const img_smooth = true;
         const border = 100;
         const aspect = {w:6.5, h:4};
@@ -174,49 +162,22 @@ window.addEventListener('load', function(){
             w = h * (aspect.w / aspect.h);
         }
 
-        canvas.style.width = `${w - border}px`;
-        canvas.style.height = `${h - border}px`;
-
-        bg.style.width = `${w - border}px`;
-        bg.style.height = `${h - border}px`;
-
-        weapon.style.width = `${w - border}px`;
-        weapon.style.height = `${h - border}px`;
-
-        interact.style.width = `${w - border}px`;
-        interact.style.height = `${h - border}px`;
+        _canvas.style.width = `${w - border}px`;
+        _canvas.style.height = `${h - border}px`;
 
         // Graphic sharpness
-        ctx.mozImageSmoothingEnabled = img_smooth;
-        ctx.msImageSmoothingEnabled = img_smooth;
-        ctx.imageSmoothingEnabled = img_smooth;
-
-        bgCtx.mozImageSmoothingEnabled = img_smooth;
-        bgCtx.msImageSmoothingEnabled = img_smooth;
-        bgCtx.imageSmoothingEnabled = img_smooth;
-
-        weaponCtx.mozImageSmoothingEnabled = img_smooth;
-        weaponCtx.msImageSmoothingEnabled = img_smooth;
-        weaponCtx.imageSmoothingEnabled = img_smooth;
-
-        interactCtx.mozImageSmoothingEnabled = img_smooth;
-        interactCtx.msImageSmoothingEnabled = img_smooth;
-        interactCtx.imageSmoothingEnabled = img_smooth;
-        
-        // console.log("resize", window.innerWidth);
+        _ctx.mozImageSmoothingEnabled = img_smooth;
+        _ctx.msImageSmoothingEnabled = img_smooth;
+        _ctx.imageSmoothingEnabled = img_smooth;
     }
 
 
     // Main Game Class ----------------------------------------
     class Game {
         constructor(ctx, size){
-            this.canvas = canvas;
             this.ctx = ctx;
-            this.bg = bg;
             this.bgCtx = bgCtx;
-            this.interact = interact;
             this.interactCtx = interactCtx;
-            this.weapon = weapon;
             this.weaponCtx = weaponCtx;
             this.size = size;
             this.active_map = 1;
@@ -273,36 +234,13 @@ window.addEventListener('load', function(){
         init(){
             this.add_resource(100, 0);
 
-            // Enemy Spawn
-            // this.enemies.push(new this.enemyTypes[0](this, {x:0, y:0}));
-
-            // Tower Grid
-            // for(let y = 0; y < this.towerArr.length; ++y) {    
-            //     for(let x = 0; x < this.towerArr[y].length; ++x) {        
-            //         if (this.towerArr[y][x]){
-            //             this.instance(this.towers, towerTypes[this.towerArr[y][x]-1], {x:64*x, y:64*y});
-            //         }
-            //     }
-            // }
-
-
             if (this.towerArr.length > 0) {
                 for (let i = 0; i < this.towerArr.length; ++i){
                     if (towerTypes[this.towerArr[i]-1]) {
                         this.instance(this.towers, towerTypes[this.towerArr[i]-1], {x:(i % 12) * 64, y:Math.floor(i/12) * 64});
-                    // this.instance(this.towers, towerTypes[this.towerArr[y][x]-1], {x:64*x, y:64*y});
-                    // this.grid.push(new Grid(this.towerArr[i], i, {x:(i % 12) * 64, y:Math.floor(i/12) * 64}, {w:64, h:64}));
-                    // this.grid[i].init();
                     }
                 }
             }
-
-
-
-
-
-            // Tower Buttons
-            // let temp_type = 1;
 
             const start_x = 825;
             const offset_x = 70;
@@ -320,7 +258,6 @@ window.addEventListener('load', function(){
                     this.buttons.push(new buttonTypes[x+3*4+1](this, {x:start_x+offset_x*x, y:start_y+offset_y*5}));
                     this.buttons.push(new buttonTypes[x+3*5+1](this, {x:start_x+offset_x*x, y:start_y+offset_y*6}));
                 }
-                
             }
         }
 
@@ -353,14 +290,12 @@ window.addEventListener('load', function(){
 
 
             // Show Mouse Position
-            // game.ctx.fillRect(mouse.pos.x, mouse.pos.y, 32,32);
+            // game.ctx.fillRect(this.mouse.pos.x-16, this.mouse.pos.y-16, 32,32);
         }
 
         #addNewEnemy(){
             const randomEnemy = Math.floor(Math.random() * (Math.floor(this.enemyTypes.length) - Math.ceil(0))) + Math.ceil(0);
             this.instance(this.enemies, this.enemyTypes[randomEnemy], {x:this.level.path[0].x, y:this.level.path[0].y});
-
-            // this.enemies.push(new this.enemyTypes[6](this, {x:this.level.path[0].x, y:this.level.path[0].y}));
 
             this.enemies.sort(function(a,b){
                 return a.pos.y - b.pos.y;
@@ -405,7 +340,6 @@ window.addEventListener('load', function(){
     function print(_msg){
         console.log(_msg);
     }
-
 
 });
 
