@@ -33,8 +33,6 @@ electron-builder build
 
 ( you'll find the executable / AppImage in the "dist" folder )
 
-![image](https://user-images.githubusercontent.com/11281480/137740199-4e9f1e8f-adbc-40d9-a866-6ff8ee8be533.png)
-
-
+<img width="1200" alt="Screenshot 2023-12-05 at 5 32 59 AM" src="https://github.com/Mainman002/Neon-DFence-Javascript/assets/11281480/9f7d7186-e996-4d9e-900e-92c79566bd56">
 
 
